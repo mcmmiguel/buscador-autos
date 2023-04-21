@@ -42,7 +42,9 @@ marca.addEventListener('change', (e)=> {
 });
 
 year.addEventListener('change', (e)=> {
-    datosBusqueda.year = e.target.value;
+    datosBusqueda.year = parseInt(e.target.value);
+
+    filtrarAuto();
 });
 
 minimo.addEventListener('change', (e)=> {
@@ -97,13 +99,22 @@ function llenarSelect() {
 
 // Función que filtra con base en la busqueda
 function filtrarAuto() {
-    const resultado = autos.filter( filtrarMarca );
+    const resultado = autos.filter( filtrarMarca ).filter( filtrarYear );
     console.log(resultado);
 }
 function filtrarMarca (auto) {
     const {marca} = datosBusqueda; //Para evitar repetir el datosBusqueda
     if (marca) { //datosBusqueda.marca
         return auto.marca === marca;  //datosBusqueda.marca
+    }
+    return auto;
+}
+
+function filtrarYear( auto ) {
+    const {year} = datosBusqueda; //Para evitar repetir el datosBusqueda
+    
+    if (year) { //datosBusqueda.year
+        return auto.year === year;  //datosBusqueda.year
     }
     return auto;
 }
