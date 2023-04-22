@@ -60,15 +60,18 @@ maximo.addEventListener('change', (e)=> {
 
 puertas.addEventListener('change', (e)=> {
     datosBusqueda.puertas = e.target.value;
+    filtrarAuto();
 });
 
 transmision.addEventListener('change', (e)=> {
     datosBusqueda.transmision = e.target.value;
+    filtrarAuto();
 });
 
 color.addEventListener('change', (e)=> {
     datosBusqueda.color = e.target.value;
     console.log(datosBusqueda);
+    filtrarAuto();
 });
 
 
@@ -111,7 +114,7 @@ function llenarSelect() {
 
 // Función que filtra con base en la busqueda
 function filtrarAuto() {
-    const resultado = autos.filter( filtrarMarca ).filter( filtrarYear ).filter( filtrarMinimo ).filter( filtrarMaximo );
+    const resultado = autos.filter( filtrarMarca ).filter( filtrarYear ).filter( filtrarMinimo ).filter( filtrarMaximo ).filter( filtrarPuertas ).filter( filtrarTransmision ).filter( filtrarColor );
 
     mostrarAutos(resultado);
 
@@ -151,3 +154,30 @@ function filtrarMaximo( auto ) {
     }
     return auto;
 }
+
+function filtrarPuertas( auto ) {
+    const {puertas} = datosBusqueda; 
+    
+    if (puertas) { 
+        return auto.puertas === parseInt(puertas);  //Convertimos el string a Entero para que sea comparable
+    }
+    return auto;
+}
+
+function filtrarTransmision( auto ){
+    const {transmision} = datosBusqueda; 
+    
+    if (transmision) { 
+        return auto.transmision === transmision;  
+    }
+    return auto;
+}
+
+function filtrarColor ( auto ) {
+    const {color} = datosBusqueda; 
+    
+    if (color) { 
+        return auto.color === color;  
+    }
+    return auto;
+} 
