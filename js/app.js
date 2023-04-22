@@ -116,10 +116,22 @@ function llenarSelect() {
 function filtrarAuto() {
     const resultado = autos.filter( filtrarMarca ).filter( filtrarYear ).filter( filtrarMinimo ).filter( filtrarMaximo ).filter( filtrarPuertas ).filter( filtrarTransmision ).filter( filtrarColor );
 
-    mostrarAutos(resultado);
-
-    // console.log(resultado);
+    if (resultado.length) {
+        mostrarAutos(resultado);
+    } else {
+       noResultado();
+    }
 }
+
+function noResultado( ) {
+    limpiarHTML();
+
+    const sinResultado = document.createElement('div');
+    sinResultado.classList.add('alerta', 'error');
+    sinResultado.textContent = 'Sin resultados. Intente con otra búsqueda';
+    resultado.appendChild(sinResultado);
+}
+
 function filtrarMarca (auto) {
     const {marca} = datosBusqueda; //Para evitar repetir el datosBusqueda
     if (marca) { //datosBusqueda.marca
